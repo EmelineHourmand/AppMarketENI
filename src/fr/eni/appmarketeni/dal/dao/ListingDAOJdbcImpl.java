@@ -73,8 +73,28 @@ public class ListingDAOJdbcImpl implements ListingDAO{
 
 	@Override
 	public List<Listing> selectAll() throws DALException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Listing> listListing = new ArrayList<Listing>();
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(SQL_SELECT_ALL);
+			ResultSet rs = pstmt.executeQuery();
+			Listing listing =new Listing();
+			while(rs.next())
+			{
+				if(rs.getInt("id_repas")!=listing.getIdList())
+				{
+					listing = linstingBuilder(rs);
+					listListing.add(listing);
+				}
+				Article aliment = articleBuilder(rs);
+				listing.getListArticle().add(aliment);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return listListing;
 	}
 
 	@Override
