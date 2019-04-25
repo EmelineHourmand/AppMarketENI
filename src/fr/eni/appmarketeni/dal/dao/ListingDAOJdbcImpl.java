@@ -105,4 +105,18 @@ public class ListingDAOJdbcImpl implements ListingDAO{
 		Article article = new Article(rs.getInt("id_article"), rs.getString("nom"), rs.getBoolean("coche"));
 		return article;
 	}
+	
+	/**
+	 * Build a listing
+	 * @param rs
+	 * @return
+	 * @throws SQLException
+	 */
+	private Listing linstingBuilder(ResultSet rs) throws SQLException {
+		Listing listing;
+		listing=new Listing();
+		listing.setIdList(rs.getInt("id_listes"));
+		listing.setName(rs.getString("nom"));
+		return listing;
+	}
 }
