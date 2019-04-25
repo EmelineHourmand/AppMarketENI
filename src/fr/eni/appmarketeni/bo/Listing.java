@@ -4,6 +4,11 @@ import java.util.List;
 
 import lombok.Data;
 
+/**
+ * 
+ * @author ehourman2019
+ *
+ */
 @Data
 public class Listing {
 
