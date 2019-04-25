@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class Article {
 
-	int idArticle;
-	String name;
-	boolean checked;
-	
+	private int idArticle;
+	private String name;
+	private boolean checked;
+
 }

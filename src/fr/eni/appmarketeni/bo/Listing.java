@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 public class Listing {
-	
-	int idList;
-	String name;
-	List<Article> listArticle;
+
+	private int idList;
+	private String name;
+	private List<Article> listArticle;
 
 }
