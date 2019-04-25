@@ -94,4 +94,15 @@ public class ListingDAOJdbcImpl implements ListingDAO{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/**
+	 * Build a Article
+	 * @param rs
+	 * @return article
+	 * @throws SQLException
+	 */
+	private Article articleBuilder(ResultSet rs) throws SQLException {
+		Article article = new Article(rs.getInt("id_article"), rs.getString("nom"), rs.getBoolean("coche"));
+		return article;
+	}
 }
