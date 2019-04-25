@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h1>Coucou vous êtes sur la Home.jsp ! :)</h1>
 </body>
 </html>
