@@ -26,7 +26,7 @@ public class ListingDAOJdbcImpl implements ListingDAO {
 	private static final String SQL_SELECT_ALL = "SELECT LISTES.id as id_listes, LISTES.nom, ARTICLES.id as id_articles, ARTICLES.nom, ARTICLES.coche FROM LISTES INNER JOIN ARTICLES ON LISTES.id = ARTICLES.id_liste";
 	private static final String SQL_UPDATE_LISTING = "UPDATE LISTES SET nom=? WHERE id=?";
 	private static final String SQL_UPDATE_ARTICLE = "UPDATE ARTICLES SET nom=?, coche=? WHERE id=?";
-	private static final String SQL_REMOVE_LISTING = "DELETE FROM LISTES WHERE id=?; DELETE FROM ARTICLES WHERE id_liste=?";
+	private static final String SQL_REMOVE_LISTING = "DELETE FROM ARTICLES WHERE id_liste=?; DELETE FROM LISTES WHERE id=?";
 	private static final String SQL_REMOVE_ARTICLE = "DELETE FROM ARTICLES WHERE id=?";
 
 	private PreparedStatement psmt = null;
