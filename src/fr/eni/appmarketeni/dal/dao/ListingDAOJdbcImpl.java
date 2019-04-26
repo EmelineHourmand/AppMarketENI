@@ -70,7 +70,6 @@ public class ListingDAOJdbcImpl implements ListingDAO {
 				throw new DALException(e.getMessage(), e);
 			}
 		}
-
 	}
 
 	@Override
@@ -151,7 +150,6 @@ public class ListingDAOJdbcImpl implements ListingDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
