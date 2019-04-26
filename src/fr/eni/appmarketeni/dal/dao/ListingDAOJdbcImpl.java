@@ -118,13 +118,25 @@ public class ListingDAOJdbcImpl implements ListingDAO{
 	}
 
 	@Override
-	public void update(Listing listing) throws DALException {
+	public void updateListing(Listing listing) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void updateArticle(Listing listing) throws DALException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(int id) throws DALException {
+	public void deleteListing(int id) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void deleteArticle(int id) throws DALException {
 		// TODO Auto-generated method stub
 		
 	}
