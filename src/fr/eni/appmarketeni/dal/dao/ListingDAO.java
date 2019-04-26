@@ -2,6 +2,7 @@ package fr.eni.appmarketeni.dal.dao;
 
 import java.util.List;
 
+import fr.eni.appmarketeni.bo.Article;
 import fr.eni.appmarketeni.bo.Listing;
 import fr.eni.appmarketeni.dal.exception.DALException;
 
@@ -46,7 +47,7 @@ public interface ListingDAO {
 	 * @param listing
 	 * @throws DALException
 	 */
-	void updateArticle(Listing listing) throws DALException;
+	void updateArticle(Article article) throws DALException;
 	
 	/**
 	 * Delete a listing element in bdd
