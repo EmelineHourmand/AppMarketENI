@@ -10,17 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AddListing
+ * Servlet implementation class BasketServlet
  */
-@WebServlet("/AddListing")
-public class AddListingServlet extends HttpServlet {
-	private static final String PATH_TO_ADD_LISTING_JSP = "/WEB-INF/jsp/addListing.jsp";
+@WebServlet("/basket")
+public class BasketServlet extends HttpServlet {
+	private static final String PATH_TO_BASKET_JSP = "/WEB-INF/jsp/basket.jsp";
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddListingServlet() {
+    public BasketServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,7 +30,7 @@ public class AddListingServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher rd = request.getRequestDispatcher(PATH_TO_ADD_LISTING_JSP);
+		RequestDispatcher rd = request.getRequestDispatcher(PATH_TO_BASKET_JSP);
 		rd.forward(request, response);
 	}
 
