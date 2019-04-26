@@ -3,6 +3,7 @@ package fr.eni.appmarketeni.bll;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import fr.eni.appmarketeni.bo.Article;
 import fr.eni.appmarketeni.bo.Listing;
 import fr.eni.appmarketeni.dal.dao.DAOFactory;
@@ -17,9 +18,19 @@ public class ListingManager {
 		daoListing = DAOFactory.getListingDAO();
 	}
 	
-	public void insertListing(Listing listing) {
+	public void insertListing(String name, List<String> listeArticle) {
 	
 		try {
+
+			
+			Listing listing = null;
+			listing.setName(name);
+			
+			List<Article> list = new ArrayList<>();
+			for (String liste : listeArticle) {
+				Article article = new Article();
+				listing.getListArticle().add(article);
+			}
 			daoListing.insert(listing);
 		} catch (DALException e) {
 			// TODO Auto-generated catch block

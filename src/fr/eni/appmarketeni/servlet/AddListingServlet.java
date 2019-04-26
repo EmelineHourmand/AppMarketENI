@@ -1,6 +1,8 @@
 package fr.eni.appmarketeni.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.appmarketeni.bll.ListingManager;
+import fr.eni.appmarketeni.bo.Listing;
+
 /**
  * Servlet implementation class AddListing
  */
@@ -16,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AddListingServlet extends HttpServlet {
 	private static final String PATH_TO_ADD_LISTING_JSP = "/WEB-INF/jsp/addListing.jsp";
 	private static final long serialVersionUID = 1L;
+	private ListingManager listeMng;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -29,7 +35,7 @@ public class AddListingServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		RequestDispatcher rd = request.getRequestDispatcher(PATH_TO_ADD_LISTING_JSP);
 		rd.forward(request, response);
 	}
@@ -38,8 +44,14 @@ public class AddListingServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		RequestDispatcher rd;
+		rd = request.getRequestDispatcher("WEB-INF/addListing.jsp");
+		rd.forward(request, response);
+		List<String> listeArticle = new ArrayList<String>();
+		listeArticle.add(request.getParameter("articleName"));
+		String nomAjout = request.getParameter("listName");
+		
+		listeMng.insertListing(nomAjout,listeArticle);
 	}
 
 }
