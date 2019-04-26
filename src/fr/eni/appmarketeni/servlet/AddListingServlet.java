@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class AddListing
  */
-@WebServlet("/AddListing")
+@WebServlet("/addListing")
 public class AddListingServlet extends HttpServlet {
 	private static final String PATH_TO_ADD_LISTING_JSP = "/WEB-INF/jsp/addListing.jsp";
 	private static final long serialVersionUID = 1L;
