@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Home
  */
-@WebServlet("/")
+@WebServlet("/home")
 public class HomeServlet extends HttpServlet {
 	private static final String PATH_TO_HOME_JSP = "/WEB-INF/jsp/home.jsp";
 	private static final long serialVersionUID = 1L;
