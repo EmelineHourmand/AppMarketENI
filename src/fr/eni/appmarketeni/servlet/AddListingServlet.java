@@ -44,15 +44,16 @@ public class AddListingServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd;
-		rd = request.getRequestDispatcher("WEB-INF/addListing.jsp");
-		rd.forward(request, response);
+		
 		List<String> listeArticle = new ArrayList<String>();
 		listeArticle.add(request.getParameter("articleName"));
 		String nomAjout = request.getParameter("listName");
 		System.out.println(nomAjout);
 		System.out.println(listeArticle.toString());
 		listeMng.insertListing(nomAjout,listeArticle);
+		RequestDispatcher rd;
+		rd = request.getRequestDispatcher(PATH_TO_ADD_LISTING_JSP);
+		rd.forward(request, response);
 	}
 
 }
