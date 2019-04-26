@@ -115,7 +115,15 @@ public class ListingDAOJdbcImpl implements ListingDAO {
 
 	@Override
 	public void updateListing(Listing listing) throws DALException {
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SQL_UPDATE_LISTING);
+			psmt.setString(1, listing.getName());
+			psmt.setInt(2, listing.getIdList());
+			pstmt.executeQuery();
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
