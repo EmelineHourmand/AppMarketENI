@@ -21,7 +21,7 @@ import fr.eni.appmarketeni.bo.Listing;
 public class AddListingServlet extends HttpServlet {
 	private static final String PATH_TO_ADD_LISTING_JSP = "/WEB-INF/jsp/addListing.jsp";
 	private static final long serialVersionUID = 1L;
-	private ListingManager listeMng;
+	private static ListingManager listeMng = new ListingManager();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -50,7 +50,8 @@ public class AddListingServlet extends HttpServlet {
 		List<String> listeArticle = new ArrayList<String>();
 		listeArticle.add(request.getParameter("articleName"));
 		String nomAjout = request.getParameter("listName");
-		
+		System.out.println(nomAjout);
+		System.out.println(listeArticle.toString());
 		listeMng.insertListing(nomAjout,listeArticle);
 	}
 

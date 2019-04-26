@@ -23,14 +23,16 @@ public class ListingManager {
 		try {
 
 			
-			Listing listing = null;
+			Listing listing = new Listing();
 			listing.setName(name);
 			
-			List<Article> list = new ArrayList<>();
 			for (String liste : listeArticle) {
-				Article article = new Article();
+				Article article = new Article(liste);
+				System.out.println(article.toString());
+				System.out.println(listing.toString());
 				listing.getListArticle().add(article);
 			}
+						
 			daoListing.insert(listing);
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
