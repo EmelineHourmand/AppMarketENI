@@ -142,7 +142,16 @@ public class ListingDAOJdbcImpl implements ListingDAO {
 
 	@Override
 	public void deleteListing(int id) throws DALException {
-		
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SQL_REMOVE_LISTING);
+			psmt.setInt(1, id);
+			psmt.setInt(2, id);
+			pstmt.executeQuery();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
