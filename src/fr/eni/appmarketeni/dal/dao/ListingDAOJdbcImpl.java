@@ -12,39 +12,41 @@ import fr.eni.appmarketeni.bo.Article;
 import fr.eni.appmarketeni.bo.Listing;
 import fr.eni.appmarketeni.dal.ConnectionProvider;
 import fr.eni.appmarketeni.dal.exception.DALException;
+
 /**
  * 
  * @author ehourman2019
  *
  */
-public class ListingDAOJdbcImpl implements ListingDAO{
+public class ListingDAOJdbcImpl implements ListingDAO {
 
 	private static final String SQL_INSERT_LISTING = "INSERT INTO LISTES (nom) VALUES (?)";
-	private static final String SQL_INSERT_ARTICLE = "INSERT INTO ARTICLE (nom, id_liste, coche)"
-													+" VALUES (?,?,?)";
-	private static final String SQL_SELECT_BY_ID = "";
-	private static final String SQL_SELECT_ALL = "";
-	private static final String SQL_UPDATE = "";
-	private static final String SQL_REMOVE = "";
-	
+	private static final String SQL_INSERT_ARTICLE = "INSERT INTO ARTICLE (nom, id_liste, coche) VALUES (?,?,?)";
+	private static final String SQL_SELECT_BY_ID = "SELECT LISTES.id as id_listes, LISTES.nom, ARTICLES.id as id_articles, ARTICLES.nom, ARTICLES.coche FROM LISTES INNER JOIN ARTICLES ON LISTES.id = ARTICLES.id_liste WHERE LISTES.id = ?";
+	private static final String SQL_SELECT_ALL = "SELECT LISTES.id as id_listes, LISTES.nom, ARTICLES.id as id_articles, ARTICLES.nom, ARTICLES.coche FROM LISTES INNER JOIN ARTICLES ON LISTES.id = ARTICLES.id_liste";
+	private static final String SQL_UPDATE_LISTING = "UPDATE LISTES SET nom=? WHERE id=?";
+	private static final String SQL_UPDATE_ARTICLE = "UPDATE ARTICLES SET nom=?, coche=? WHERE id=?";
+	private static final String SQL_REMOVE_LISTING = "DELETE FROM LISTES WHERE id=?; DELETE FROM ARTICLES WHERE id_liste=?";
+	private static final String SQL_REMOVE_ARTICLE = "DELETE FROM ARTICLES WHERE id=?";
+
 	private PreparedStatement psmt = null;
-	
+
 	@Override
 	public void insert(Listing listing) throws DALException {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			psmt = cnx.prepareStatement(SQL_INSERT_LISTING, Statement.RETURN_GENERATED_KEYS);
-			
+
 			psmt.setString(1, listing.getName());
 			psmt.executeUpdate();
-			
+
 			ResultSet rs = psmt.getGeneratedKeys();
 			if (rs.next()) {
 				listing.setIdList(rs.getInt(1));
 			}
-			
+
 			for (Article article : listing.getListArticle()) {
 				psmt = cnx.prepareStatement(SQL_INSERT_ARTICLE, Statement.RETURN_GENERATED_KEYS);
-				
+
 				psmt.setString(1, article.getName());
 				psmt.setInt(2, listing.getIdList());
 				psmt.setBoolean(3, article.isChecked());
@@ -54,7 +56,7 @@ public class ListingDAOJdbcImpl implements ListingDAO{
 					article.setIdArticle(rs.getInt(1));
 				}
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DALException(e.getMessage(), e);
@@ -68,30 +70,25 @@ public class ListingDAOJdbcImpl implements ListingDAO{
 				throw new DALException(e.getMessage(), e);
 			}
 		}
-		
+
 	}
 
 	@Override
 	public List<Listing> selectAll() throws DALException {
 		List<Listing> listListing = new ArrayList<Listing>();
-		try(Connection cnx = ConnectionProvider.getConnection())
-		{
+		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(SQL_SELECT_ALL);
 			ResultSet rs = pstmt.executeQuery();
-			Listing listing =new Listing();
-			while(rs.next())
-			{
-				if(rs.getInt("id_repas")!=listing.getIdList())
-				{
+			Listing listing = new Listing();
+			while (rs.next()) {
+				if (rs.getInt("id_repas") != listing.getIdList()) {
 					listing = linstingBuilder(rs);
 					listListing.add(listing);
 				}
 				Article aliment = articleBuilder(rs);
 				listing.getListArticle().add(aliment);
 			}
-		}
-		catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return listListing;
@@ -99,19 +96,18 @@ public class ListingDAOJdbcImpl implements ListingDAO{
 
 	@Override
 	public Listing selectById(int id) throws DALException {
-		Listing listing =new Listing();
-		try(Connection cnx = ConnectionProvider.getConnection())
-		{
-			PreparedStatement pstmt = cnx.prepareStatement(SQL_SELECT_ALL);
+		Listing listing = new Listing();
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SQL_SELECT_BY_ID);
+			psmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
-			
-			while(rs.next())
-			{
+
+			while (rs.next()) {
 				listing = linstingBuilder(rs);
 				Article aliment = articleBuilder(rs);
 				listing.getListArticle().add(aliment);
 			}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return listing;
@@ -119,30 +115,27 @@ public class ListingDAOJdbcImpl implements ListingDAO{
 
 	@Override
 	public void updateListing(Listing listing) throws DALException {
-		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
-	public void updateArticle(Listing listing) throws DALException {
-		// TODO Auto-generated method stub
-		
+	public void updateArticle(Article article) throws DALException {
+
 	}
 
 	@Override
 	public void deleteListing(int id) throws DALException {
-		// TODO Auto-generated method stub
 		
 	}
-	
+
 	@Override
 	public void deleteArticle(int id) throws DALException {
-		// TODO Auto-generated method stub
 		
-	}
+	}	
 	
 	/**
 	 * Build a Article
+	 * 
 	 * @param rs
 	 * @return article
 	 * @throws SQLException
@@ -151,16 +144,17 @@ public class ListingDAOJdbcImpl implements ListingDAO{
 		Article article = new Article(rs.getInt("id_article"), rs.getString("nom"), rs.getBoolean("coche"));
 		return article;
 	}
-	
+
 	/**
 	 * Build a listing
+	 * 
 	 * @param rs
 	 * @return
 	 * @throws SQLException
 	 */
 	private Listing linstingBuilder(ResultSet rs) throws SQLException {
 		Listing listing;
-		listing=new Listing();
+		listing = new Listing();
 		listing.setIdList(rs.getInt("id_listes"));
 		listing.setName(rs.getString("nom"));
 		return listing;
