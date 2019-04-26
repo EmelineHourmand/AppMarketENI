@@ -39,12 +39,26 @@ public interface ListingDAO {
 	 * @param listing
 	 * @throws DALException
 	 */
-	void update(Listing listing) throws DALException;
+	void updateListing(Listing listing) throws DALException;
+	
+	/**
+	 * Update a aricle element in bdd
+	 * @param listing
+	 * @throws DALException
+	 */
+	void updateArticle(Listing listing) throws DALException;
 	
 	/**
 	 * Delete a listing element in bdd
 	 * @param id
 	 * @throws DALException
 	 */
-	void delete(int id) throws DALException;
+	void deleteListing(int id) throws DALException;
+	
+	/**
+	 * Delete a article element in bdd
+	 * @param id
+	 * @throws DALException
+	 */
+	void deleteArticle(int id) throws DALException;
 }
